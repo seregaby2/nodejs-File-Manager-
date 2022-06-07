@@ -2,10 +2,14 @@ import  { parseArgs }  from './module/pasreArgs.js';
 import  { listDataName }  from './module/listDataName.js';
 import  { upDirectory }  from './module/upDirectory.js';
 import  { readListFile }  from './module/readListFile.js';
+import  { readFile }  from './module/readFile.js';
+import  { createFile }  from './module/createFile.js';
+import { renameFile } from './module/renameFile.js';
 import os from 'os';
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import { fileURLToPath } from 'url';
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
@@ -31,9 +35,18 @@ export const main = async() => {
             case 'ls':
                 readListFile()
                 break
+            case `cat ${answerPath[1]}`:
+                readFile(answerPath[1])
+                break
+            case `add ${answerPath[1]}`:
+                createFile(answerPath[1])
+                break
+            case `rn ${answerPath[1]} ${answerPath[2]}`:
+                renameFile(answerPath[1], answerPath[2])
+                break
 
             default: 
-            console.log('\n Invalid input, please enter correct command')
+            console.log('\nInvalid input, please enter correct command')
         }
         
     })
