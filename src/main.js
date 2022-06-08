@@ -5,10 +5,15 @@ import  { readListFile }  from './module/readListFile.js';
 import  { readFile }  from './module/readFile.js';
 import  { createFile }  from './module/createFile.js';
 import { renameFile } from './module/renameFile.js';
+import { removeFile } from './module/removeFile.js';
+import { copyFile } from './module/copyFile.js';
+import { moveFile } from './module/moveFile.js';
 import os from 'os';
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import { fileURLToPath } from 'url';
+
+
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -43,6 +48,15 @@ export const main = async() => {
                 break
             case `rn ${answerPath[1]} ${answerPath[2]}`:
                 renameFile(answerPath[1], answerPath[2])
+                break
+            case `rm ${answerPath[1]}`:
+                removeFile(answerPath[1])
+                break
+            case `cp ${answerPath[1]} ${answerPath[2]}`:
+                copyFile(answerPath[1], answerPath[2])
+                break
+            case `mv ${answerPath[1]} ${answerPath[2]}`:
+                moveFile(answerPath[1], answerPath[2])
                 break
 
             default: 
