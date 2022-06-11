@@ -17,9 +17,9 @@ import os from 'os';
 import * as path from 'path'
 import * as fs from 'fs/promises'
 import { fileURLToPath } from 'url';
-import { Hash } from 'crypto';
 import { calculateHash } from './module/hash/hash.js';
-
+import { compress } from './module/compress/compress.js';
+import {decompress } from './module/compress/decompress.js';
 
 
 
@@ -85,6 +85,12 @@ export const main = async() => {
                 break
             case `hash ${answerPath[1]}`:
                 calculateHash(answerPath[1])
+                break
+            case `compress ${answerPath[1]} ${answerPath[2]}`:
+                compress(answerPath[1], answerPath[2])
+                break
+            case `decompress ${answerPath[1]} ${answerPath[2]}`:
+                decompress(answerPath[1], answerPath[2])
                 break
 
             default: 
