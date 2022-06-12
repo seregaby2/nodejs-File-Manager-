@@ -1,10 +1,12 @@
 import { createHash } from 'crypto';
-import * as fs from 'fs/promises'
+import * as fs from 'fs'
 import * as path from 'path'
 
 export const calculateHash = async (pathArg) => {
+    let data = ''
     const PathFromRead = path.join(process.cwd(), pathArg);
-    fs.readFile(PathFromRead, {encoding: 'utf-8'})
-    .then(data => createHash('sha256').update(data).digest('hex'))
-    .then(data => console.log(data))
+    const readData = fs.createReadStream(PathFromRead, 'utf-8')
+    readData.on('data', chunk => data += chunk);
+    readData.on('end', ()=> console.log(createHash('sha256').update(data).digest('hex')))
+    readData.on('error', e => console.log('operation failed'))
 };

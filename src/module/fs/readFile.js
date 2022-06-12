@@ -8,5 +8,5 @@ export const readFile = async (pathArg) => {
     const readData = fs.createReadStream(PathToDirectory, 'utf-8')
     readData.on('data', chunk => data += chunk);
     readData.on('end', ()=> process.stdout.write(`${data}\n`))
-    readData.on('error', e => console.log(e))
+    readData.on('error', e => console.log('operation failed'))
 };
